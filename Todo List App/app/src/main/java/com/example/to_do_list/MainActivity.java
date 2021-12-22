@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     ListView todoList;
     Button addActivity;
-    Button shareReport;
+
     ArrayList<ActivityModel> activityList;
     DbHelper dbHelper;
     @Override
@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         activityList = dbHelper.getAllActivities();
         todoList = findViewById(R.id.todoList);
         addActivity = (Button) findViewById(R.id.addActivity);
-        shareReport = findViewById(R.id.btnShare);
-        shareReport.setOnClickListener(this);
+
+
         addActivity.setOnClickListener(this);
 
         todoList.setAdapter(new ActivityAdapter(this,activityList,dbHelper));
@@ -66,12 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.addActivity:
                 goToAddActivity();
                 break;
-            case R.id.btnShare:
-                Intent intent2 = new Intent(); intent2.setAction(Intent.ACTION_SEND);
-                intent2.setType("text/plain");
-                intent2.putExtra(Intent.EXTRA_TEXT, createReport() );
-                startActivity(Intent.createChooser(intent2, "Share via"));
-                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + v.getId());
         }
